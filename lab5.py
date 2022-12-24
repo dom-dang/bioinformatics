@@ -46,7 +46,7 @@ def calcGC (header, sequence):
     if (lineChecker(sequence)):
         gCount = getCount (sequence, "G")
         cCount = getCount(sequence, "C")
-        GCpercent = ((float(gCount)+float(cCount))/lenSeq) * 100
+        GCpercent = ((float(gCount)+float(cCount))/float(lenSeq)) * 100
         return (header+"\t"+str(GCpercent) + "%\n")
     else: 
         return (header + "\t" + "ERROR\n") 
@@ -213,41 +213,32 @@ def nInput(inFile, outFile):
 
 
 #start of main function line 215
- 
-if (getLength(sys.argv) <5):
+
+if (getLength (sys.argv) == 6 or getLength(sys.argv) == 8):
+    option = sys.argv[1]
+    inputLetter = sys.argv[2]
+    outputLetter = sys.argv[4]
+    inputFile = sys.argv[3]
+    outputFile = sys.argv[5]
+    if (inputLetter != "-i" or outputLetter != "-o"):
+        print ("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
+        sys.exit()
+    elif (option =="-g"):
+        gInput(inputFile, outputFile)
+    elif (option == "-r"):
+        rInput(inputFile, outputFile)
+    elif (option == "-s"):
+        sInput(inputFile, outputFile)
+    elif (option == "-n"):
+        nInput(inputFile, outputFile)  
+    elif (option =="-l" and getLength(sys.argv) ==8):
+        lInput(inputFile, outputFile, sys.argv[7])
+    else:
+        print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
+        sys.exit()
+else:
     print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
     sys.exit()
 
-option = sys.argv[1]
-inputLetter = sys.argv[2]
-outputLetter = sys.argv[4]
-
-if (option== "-g" or option == "-r" or option == "-s" or option == "-n"):
-    if (getLength(sys.argv) !=6 or inputLetter != "-i" or outputLetter != "-o"):
-        print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
-        sys.exit()
-    else:
-        inputFile = sys.argv[3]
-        outputFile = sys.argv[5]
-        if (option == "-g"):
-            gInput(inputFile, outputFile)
-        elif (option =="-r"):
-            rInput(inputFile, outputFile)
-        elif (option == "-s"):
-            sInput(inputFile, outputFile)
-        elif (option == "-n"):
-            nInput(inputFile, outputFile)
-
-elif (option =="-l"):
-    if (getLength(sys.argv) !=8 or inputLetter != "-i" or outputLetter != "-o"):
-        print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
-        sys.exit()
-    else:
-        inputFile = sys.argv[3]
-        outputFile = sys.argv[5]
-        codonFile = sys.argv[7]
-        lInput(inputFile, outputFile, codonFile)
-else: 
-     print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides")
 
 
