@@ -221,7 +221,7 @@ if (getLength (sys.argv) == 6 or getLength(sys.argv) == 8):
     inputFile = sys.argv[3]
     outputFile = sys.argv[5]
     if (inputLetter != "-i" or outputLetter != "-o"):
-        print ("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
+        print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
         sys.exit()
     elif (option =="-g"):
         gInput(inputFile, outputFile)
@@ -239,6 +239,5 @@ if (getLength (sys.argv) == 6 or getLength(sys.argv) == 8):
 else:
     print("Error: USAGE: python myprogram.py: option –i input.fasta –o output.txt\n\tAvailable options:\n\t\t-g GC percent\n\t\t-r reverse complement\n\t\t-s transcription\n\t\t-l translation\n\t\t-n count nucleotides\n")
     sys.exit()
-
 
 
